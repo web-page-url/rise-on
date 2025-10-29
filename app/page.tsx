@@ -134,7 +134,7 @@ export default function Home() {
               animate={{ scale: 1 }}
               transition={{ delay: 1, type: 'spring', stiffness: 200 }}
             >
-              6
+              7
             </motion.div>
             <div className="text-gray-400">Motivational Tracks</div>
           </div>

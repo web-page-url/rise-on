@@ -55,11 +55,11 @@ const Player = () => {
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-gray-900/95 to-black/95 backdrop-blur-xl border-t border-white/10 shadow-2xl"
       >
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+        <div className="container mx-auto px-4 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
             {/* Song Info */}
             <div className="flex items-center space-x-4 flex-1 min-w-0">
-              <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+              <div className="relative w-12 h-12 sm:w-12 sm:h-12 rounded-lg overflow-hidden flex-shrink-0">
                 <Image
                   src={currentSong.cover}
                   alt={currentSong.title}
@@ -72,7 +72,7 @@ const Player = () => {
                 />
               </div>
               <div className="min-w-0 flex-1">
-                <h4 className="font-semibold text-white text-sm truncate">
+                <h4 className="font-semibold text-white text-sm sm:text-sm truncate">
                   {currentSong.title}
                 </h4>
                 <p className="text-gray-400 text-xs truncate">
@@ -82,28 +82,28 @@ const Player = () => {
             </div>
 
             {/* Controls */}
-            <div className="flex flex-col items-center space-y-2 flex-1 max-w-md">
-              {/* Control Buttons */}
-              <div className="flex items-center space-x-4">
+            <div className="flex flex-col items-center space-y-3 sm:space-y-2 flex-1 max-w-md">
+              {/* Control Buttons - Mobile Optimized */}
+              <div className="flex items-center space-x-6 sm:space-x-4">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={previousSong}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-gray-400 hover:text-white transition-colors p-2 sm:p-1 touch-manipulation"
                 >
-                  <SkipBack className="w-5 h-5" />
+                  <SkipBack className="w-6 h-6 sm:w-5 sm:h-5" />
                 </motion.button>
 
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={togglePlayPause}
-                  className="w-10 h-10 bg-gradient-to-r from-orange-500 to-pink-500 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-orange-500/25 transition-shadow"
+                  className="w-12 h-12 sm:w-10 sm:h-10 bg-gradient-to-r from-orange-500 to-pink-500 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-orange-500/25 transition-shadow touch-manipulation"
                 >
                   {isPlaying ? (
-                    <Pause className="w-5 h-5" />
+                    <Pause className="w-6 h-6 sm:w-5 sm:h-5" />
                   ) : (
-                    <Play className="w-5 h-5 ml-0.5" />
+                    <Play className="w-6 h-6 sm:w-5 sm:h-5 ml-0.5" />
                   )}
                 </motion.button>
 
@@ -111,35 +111,46 @@ const Player = () => {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={nextSong}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-gray-400 hover:text-white transition-colors p-2 sm:p-1 touch-manipulation"
                 >
-                  <SkipForward className="w-5 h-5" />
+                  <SkipForward className="w-6 h-6 sm:w-5 sm:h-5" />
                 </motion.button>
               </div>
 
-              {/* Progress Bar */}
-              <div className="flex items-center space-x-3 w-full">
-                <span className="text-xs text-gray-400 font-mono">
-                  {formatTime(currentTime)}
-                </span>
+              {/* Progress Bar - Mobile Optimized */}
+              <div className="flex flex-col space-y-2 w-full">
+                {/* Time Display */}
+                <div className="flex justify-between items-center px-1">
+                  <span className="text-sm text-gray-300 font-mono">
+                    {formatTime(currentTime)}
+                  </span>
+                  <span className="text-sm text-gray-300 font-mono">
+                    {formatTime(duration)}
+                  </span>
+                </div>
 
-                <Slider
-                  value={[currentTime]}
-                  max={duration || 100}
-                  step={1}
-                  onValueChange={handleSeek}
-                  className="flex-1"
-                />
-
-                <span className="text-xs text-gray-400 font-mono">
-                  {formatTime(duration)}
-                </span>
+                {/* Enhanced Progress Bar for Mobile */}
+                <div className="relative group">
+                  <Slider
+                    value={[currentTime]}
+                    max={duration || 100}
+                    step={1}
+                    onValueChange={handleSeek}
+                    className="w-full cursor-pointer touch-manipulation
+                      [&_[data-slot=slider-track]]:h-3 [&_[data-slot=slider-track]]:sm:h-2
+                      [&_[data-slot=slider-thumb]]:h-6 [&_[data-slot=slider-thumb]]:w-6
+                      [&_[data-slot=slider-thumb]]:sm:h-4 [&_[data-slot=slider-thumb]]:sm:w-4
+                      [&_[data-slot=slider-thumb]]:bg-white [&_[data-slot=slider-thumb]]:border-2
+                      [&_[data-slot=slider-thumb]]:border-orange-500 [&_[data-slot=slider-thumb]]:shadow-lg
+                      [&_[data-slot=slider-thumb]]:hover:scale-110 [&_[data-slot=slider-thumb]]:transition-transform"
+                  />
+                </div>
               </div>
             </div>
 
             {/* Volume & Close */}
-            <div className="flex items-center space-x-4 flex-1 justify-end">
-              {/* Volume Control */}
+            <div className="flex items-center justify-end flex-1">
+              {/* Volume Control - Hidden on Mobile */}
               <div className="hidden md:flex items-center space-x-2 min-w-[120px]">
                 {volume === 0 ? (
                   <VolumeX className="w-4 h-4 text-gray-400" />
@@ -155,14 +166,14 @@ const Player = () => {
                 />
               </div>
 
-              {/* Close Button */}
+              {/* Close Button - Mobile Optimized */}
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={hidePlayer}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors p-2 sm:p-1 touch-manipulation ml-4"
               >
-                <X className="w-5 h-5" />
+                <X className="w-6 h-6 sm:w-5 sm:h-5" />
               </motion.button>
             </div>
           </div>

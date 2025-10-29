@@ -20,6 +20,15 @@ export const songs: Song[] = [
     tags: ["morning", "start", "positive", "energy", "begin"]
   },
   {
+    id: "morning-affirmation-maheshwari",
+    title: "Morning Affirmation",
+    artist: "Maheshwari",
+    cover: "/covers/morning-affirmation.jpg",
+    src: "/songs/morning-affirmation-maheshwari.mp3",
+    category: "Morning Motivation",
+    tags: ["morning", "affirmation", "positive", "mindset", "start", "day", "motivation"]
+  },
+  {
     id: "energetic-maheshwari",
     title: "Energetic Motivation",
     artist: "Maheshwari",
