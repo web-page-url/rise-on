@@ -24,7 +24,7 @@ const Footer = () => {
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
             </motion.div>
             <span className="text-sm text-gray-400">
-              for motivation.
+              By Anubhav.
             </span>
           </div>
 
